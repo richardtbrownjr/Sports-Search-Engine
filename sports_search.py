@@ -36,7 +36,7 @@ def search_players():
     con = psycopg2.connect("dbname=panthers2 user=richardt.brownjr.")
     cur = con.cursor()
     pname = input("Name of Panther player you want to find in database? ")
-    cur.execute("SELECT * FROM panthers2 WHERE Name=%(name)s", {'name': pname})
+    cur.execute("SELECT * FROM panthers2 WHERE Name ILIKE %(name)s", {'name': "%" + pname.replace(' ',"%") + "%"})
     print(" Num,     Name,       Age,  Pos,   YRushing,  YReceiving,  TD")
     print (cur.fetchone())
     con.commit()
